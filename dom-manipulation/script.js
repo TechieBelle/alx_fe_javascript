@@ -186,7 +186,7 @@ function importFromJsonFile(event) {
 }
 
 // Fetch server quotes and sync
-async function fetchServerQuotes() {
+async function fetchQuotesFromServer() {
   try {
     const response = await fetch(SERVER_URL);
     const serverQuotes = await response.json();
@@ -275,5 +275,5 @@ loadQuotes();
 loadLastViewedQuote();
 createAddQuoteForm();
 populateCategories();
-fetchServerQuotes();
-setInterval(fetchServerQuotes, 30000);
+fetchQuotesFromServer();
+setInterval(fetchQuotesFromServer, 30000);
