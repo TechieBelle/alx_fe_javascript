@@ -257,12 +257,20 @@ async function postQuoteToServer(quote) {
     console.error("Error posting quote:", err);
   }
 }
+function syncQuotes() {
+  fetchQuotesFromServer();
+}
+// Initial sync
+syncQuotes();
+
+// Periodic sync
+setInterval(syncQuotes, 30000);
 
 // Event listeners
 document.getElementById("newQuote").addEventListener("click", showRandomQuote);
 document
   .getElementById("exportButton")
-  .addEventListener("click", exportQuotesAsJson);
+  .addEventListener("click", exportQuotesAsJson);""
 document
   .getElementById("importFile")
   .addEventListener("change", importFromJsonFile);
