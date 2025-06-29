@@ -1,0 +1,11 @@
+/* body{
+    background-color: black;
+} */
+
+#quoteDisplay{
+    background-color: black;
+    color: #fff;
+    width: 500px;
+    height: 300px;
+    margin-bottom: 20px;
+}
