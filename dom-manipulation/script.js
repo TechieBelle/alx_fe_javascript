@@ -217,7 +217,7 @@ async function fetchQuotesFromServer() {
     if (conflictsResolved) {
       saveQuotes();
       populateCategories();
-      notifyUser("Quotes updated from server. Conflicts resolved.");
+      notifyUser("Quotes synced with server!");
     }
   } catch (error) {
     console.error("Error syncing with server:", error);
