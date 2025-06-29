@@ -1,11 +1,23 @@
+// Simulated server URL
+const SERVER_URL = "https://jsonplaceholder.typicode.com/posts";
+
 // Initial quotes
 const quotesArray = [
   {
+    id: 1,
     text: "The only limit to our realization of tomorrow is our doubts of today.",
     category: "Inspiration",
   },
-  { text: "Believe you can and you're halfway there.", category: "Confidence" },
-  { text: "You miss 100% of the shots you don’t take.", category: "Action" },
+  {
+    id: 2,
+    text: "Believe you can and you're halfway there.",
+    category: "Confidence",
+  },
+  {
+    id: 3,
+    text: "You miss 100% of the shots you don’t take.",
+    category: "Action",
+  },
 ];
 
 // Load from localStorage
@@ -118,10 +130,15 @@ function addQuote() {
   const category = document.getElementById("newQuoteCategory").value.trim();
 
   if (text && category) {
-    const newQuote = { text, category };
+    const newQuote = {
+      id: Date.now(),
+      text,
+      category,
+    };
     quotesArray.push(newQuote);
     saveQuotes();
     populateCategories();
+    postQuoteToServer(newQuote);
 
     document.getElementById("newQuoteText").value = "";
     document.getElementById("newQuoteCategory").value = "";
@@ -168,6 +185,79 @@ function importFromJsonFile(event) {
   fileReader.readAsText(event.target.files[0]);
 }
 
+// Fetch server quotes and sync
+async function fetchServerQuotes() {
+  try {
+    const response = await fetch(SERVER_URL);
+    const serverQuotes = await response.json();
+
+    let conflictsResolved = false;
+
+    serverQuotes.slice(0, 10).forEach((serverQuote) => {
+      const serverId = serverQuote.id;
+      const serverText = serverQuote.title;
+      const serverCategory = String(serverQuote.userId);
+
+      const existingIndex = quotesArray.findIndex((q) => q.id === serverId);
+
+      if (existingIndex === -1) {
+        quotesArray.push({
+          id: serverId,
+          text: serverText,
+          category: serverCategory,
+        });
+        conflictsResolved = true;
+      } else if (quotesArray[existingIndex].text !== serverText) {
+        quotesArray[existingIndex].text = serverText;
+        quotesArray[existingIndex].category = serverCategory;
+        conflictsResolved = true;
+      }
+    });
+
+    if (conflictsResolved) {
+      saveQuotes();
+      populateCategories();
+      notifyUser("Quotes updated from server. Conflicts resolved.");
+    }
+  } catch (error) {
+    console.error("Error syncing with server:", error);
+  }
+}
+
+// Notify user of updates
+function notifyUser(message) {
+  const quoteDisplay = document.getElementById("quoteDisplay");
+  const notification = document.createElement("div");
+  notification.style.background = "#ffeb3b";
+  notification.style.color = "#333";
+  notification.style.padding = "10px";
+  notification.style.margin = "10px auto";
+  notification.style.borderRadius = "4px";
+  notification.textContent = message;
+  quoteDisplay.prepend(notification);
+}
+
+// Simulate posting new quotes
+async function postQuoteToServer(quote) {
+  try {
+    const response = await fetch(SERVER_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        title: quote.text,
+        body: "",
+        userId: quote.category,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    });
+    const data = await response.json();
+    console.log("Posted to server:", data);
+  } catch (err) {
+    console.error("Error posting quote:", err);
+  }
+}
+
 // Event listeners
 document.getElementById("newQuote").addEventListener("click", showRandomQuote);
 document
@@ -185,3 +275,5 @@ loadQuotes();
 loadLastViewedQuote();
 createAddQuoteForm();
 populateCategories();
+fetchServerQuotes();
+setInterval(fetchServerQuotes, 30000);
