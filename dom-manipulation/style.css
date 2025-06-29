@@ -1,11 +1,86 @@
-/* body{
-    background-color: black;
-} */
-
-#quoteDisplay{
-    background-color: black;
-    color: #fff;
-    width: 500px;
-    height: 300px;
+/* Reset some default spacing */
+body, h1, div, button, input {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body styling */
+  body {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    padding: 40px;
+    text-align: center;
+  }
+  
+  /* Header */
+  h1 {
+    color: #2c3e50;
     margin-bottom: 20px;
-}
+  }
+  
+  /* Quote display area */
+  #quoteDisplay {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 20px;
+    min-height: 60px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    font-size: 1.1em;
+  }
+  
+  /* Buttons */
+  button {
+    background: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    margin: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+  }
+  
+  button:hover {
+    background: #2980b9;
+  }
+  
+  /* Input fields */
+  #formContainer input,
+  input[type="file"] {
+    padding: 8px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+  
+  /* Form container */
+  #formContainer {
+    margin-top: 20px;
+  }
+  
+  /* Highlighted quote text */
+  .quote strong {
+    color: #2c3e50;
+  }
+  
+  /* Category label */
+  .quote em {
+    color: #888;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 600px) {
+    #quoteDisplay {
+      width: 90%;
+      padding: 15px;
+    }
+  }
+  
