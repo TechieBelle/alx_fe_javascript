@@ -1,11 +1,9 @@
-/* Reset some default spacing */
-body, h1, div, button, input {
+body, h1, div, button, input, select {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
   }
   
-  /* Body styling */
   body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background: #f8f9fa;
@@ -14,13 +12,11 @@ body, h1, div, button, input {
     text-align: center;
   }
   
-  /* Header */
   h1 {
     color: #2c3e50;
     margin-bottom: 20px;
   }
   
-  /* Quote display area */
   #quoteDisplay {
     background: #fff;
     border: 1px solid #ddd;
@@ -34,7 +30,6 @@ body, h1, div, button, input {
     font-size: 1.1em;
   }
   
-  /* Buttons */
   button {
     background: #3498db;
     color: white;
@@ -51,9 +46,9 @@ body, h1, div, button, input {
     background: #2980b9;
   }
   
-  /* Input fields */
   #formContainer input,
-  input[type="file"] {
+  input[type="file"],
+  #categoryFilter {
     padding: 8px;
     margin: 8px;
     border: 1px solid #ccc;
@@ -61,22 +56,18 @@ body, h1, div, button, input {
     font-size: 1em;
   }
   
-  /* Form container */
   #formContainer {
     margin-top: 20px;
   }
   
-  /* Highlighted quote text */
   .quote strong {
     color: #2c3e50;
   }
   
-  /* Category label */
   .quote em {
     color: #888;
   }
   
-  /* Responsive adjustments */
   @media (max-width: 600px) {
     #quoteDisplay {
       width: 90%;
